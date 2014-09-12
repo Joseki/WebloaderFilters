@@ -1,0 +1,19 @@
+{
+    "name": "joseki/webloader-filters",
+    "description": "This is an extension of janmarek/webloader. This extension contains filters to minify js and css.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Miroslav Paulík",
+            "email": "miras.paulik@seznam.cz"
+        }
+    ],
+    "require": {
+        "php": ">= 5.3.0",
+        "tedivm/jshrink": "~1.0",
+        "natxet/CssMin": "@dev"
+    },
+    "autoload": {
+        "classmap": ["src"]
+    }
+}
