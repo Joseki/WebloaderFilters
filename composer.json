@@ -15,5 +15,8 @@
     },
     "autoload": {
         "classmap": ["src"]
+    },
+    "suggest": {
+        "janmarek/webloader": "Tool for loading or deploying CSS and JS files into web pages."
     }
 }
