@@ -13,8 +13,14 @@
         "tedivm/jshrink": "~1.0",
         "natxet/CssMin": "~3.0"
     },
+    "require-dev": {
+        "nette/tester": "~1.0"
+    },
     "autoload": {
         "classmap": ["src"]
+    },
+    "autoload-dev": {
+        "classmap": ["tests"]
     },
     "suggest": {
         "janmarek/webloader": "Tool for loading or deploying CSS and JS files into web pages."
