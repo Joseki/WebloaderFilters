@@ -3,6 +3,7 @@
 namespace JosekiTests\WebloaderFilters;
 
 use Joseki\Webloader\JsMinFilter;
+use Mockery as m;
 use Nette\Configurator;
 use Nette\Utils\Random;
 use Tester\Assert;
@@ -13,17 +14,19 @@ class JsMinTest extends \Tester\TestCase
 {
     public function testMin()
     {
-        $content = file_get_contents(__DIR__ . '/files/example.js');
+        $file = __DIR__ . '/files/example.js';
+        $code = file_get_contents($file);
+        $compiler = m::mock('WebLoader\Compiler');
+
         $jsMin = new JsMinFilter();
 
-        Assert::matchFile(__DIR__ . '/files/example.js.expected', $jsMin($content));
+        Assert::matchFile(__DIR__ . '/files/example.js.expected', $jsMin($code, $compiler));
     }
 
 
 
     public function testFileFilter()
     {
-
         $configurator = new Configurator;
         $configurator->setTempDirectory(TEMP_DIR);
         $configurator->addParameters(array('container' => array('class' => 'SystemContainer_' . Random::generate())));
@@ -36,19 +39,7 @@ class JsMinTest extends \Tester\TestCase
 
         /** @var \Webloader\Compiler $compiler */
         $compiler = $jsLoader->getCompiler();
-
-        $generated = $compiler->generate();
-        Assert::equal(1, count($generated));
-        $file = $generated[0]->file;
-        $filePath = TEMP_DIR . '/../' . $file;
-        @unlink($filePath);
-
-        ob_start();
-        $jsLoader->render();
-        ob_get_clean();
-
-        Assert::true(file_exists($filePath));
-        Assert::matchFile(__DIR__ . '/files/example.min.js.expected', file_get_contents($filePath));
+        Assert::matchFile(__DIR__ . '/files/example.min.js.expected', $compiler->getContent());
     }
 
 }

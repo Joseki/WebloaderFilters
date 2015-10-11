@@ -15,6 +15,7 @@
     },
     "require-dev": {
         "janmarek/webloader": "~2.5",
+        "mockery/mockery": "dev-master",
         "nette/bootstrap": "~2.2",
         "nette/robot-loader": "~2.2",
         "nette/tester": "~1.0",
