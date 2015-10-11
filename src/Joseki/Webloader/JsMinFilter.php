@@ -14,7 +14,7 @@ class JsMinFilter
      * @param string $file
      * @return string
      */
-    public function __invoke($code, Compiler $compiler, $file)
+    public function __invoke($code, Compiler $compiler, $file = '')
     {
         if (strpos($file, '.min.') !== FALSE) {
             return $code;
