@@ -1,0 +1,17 @@
+extensions:
+  webloader: WebLoader\Nette\Extension
+
+services:
+  jsMin: Joseki\Webloader\JsMinFilter
+
+webloader:
+  jsDefaults:
+    sourceDir: %appDir%/files
+    tempDir: %appDir%/../../temp
+  js:
+    default:
+      files:
+        - example.js
+        - example.min.js
+      filters:
+        - @jsMin
