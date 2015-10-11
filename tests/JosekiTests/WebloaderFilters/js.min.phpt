@@ -25,17 +25,40 @@ class JsMinTest extends \Tester\TestCase
 
 
 
-    public function testFileFilter()
+    private function prepareConfigurator()
     {
         $configurator = new Configurator;
         $configurator->setTempDirectory(TEMP_DIR);
         $configurator->addParameters(array('container' => array('class' => 'SystemContainer_' . Random::generate())));
         $configurator->addConfig(__DIR__ . '/files/config.js.min.neon', $configurator::NONE);
+
+        return $configurator;
+    }
+
+
+    public function testFilter()
+    {
+        $configurator = $this->prepareConfigurator();
         $container = $configurator->createContainer();
 
         /** @var \WebLoader\Nette\LoaderFactory $webloader */
         $webloader = $container->getByType('\WebLoader\Nette\LoaderFactory');
         $jsLoader = $webloader->createJavaScriptLoader('default');
+
+        /** @var \Webloader\Compiler $compiler */
+        $compiler = $jsLoader->getCompiler();
+        Assert::matchFile(__DIR__ . '/files/example.js.expected', $compiler->getContent());
+    }
+
+
+    public function testFileFilter()
+    {
+        $configurator = $this->prepareConfigurator();
+        $container = $configurator->createContainer();
+
+        /** @var \WebLoader\Nette\LoaderFactory $webloader */
+        $webloader = $container->getByType('\WebLoader\Nette\LoaderFactory');
+        $jsLoader = $webloader->createJavaScriptLoader('file');
 
         /** @var \Webloader\Compiler $compiler */
         $compiler = $jsLoader->getCompiler();

@@ -12,6 +12,11 @@ webloader:
     default:
       files:
         - example.js
-        - example.min.js
       filters:
+        - @jsMin
+    file:
+      files:
+        - example.min.js
+        - example.js
+      fileFilters:
         - @jsMin

@@ -16,6 +16,10 @@ class JsMinFilter
      */
     public function __invoke($code, Compiler $compiler, $file = '')
     {
+        if (strpos($file, '.min.') !== FALSE) {
+            return $code;
+        }
+
         return Minifier::minify($code);
     }
 }

@@ -42,3 +42,16 @@ webloader:
       filters:
         - @jsMin
 ```
+
+NOTE: when using as a `fileFilters`, files containing `.min.` in their names will be ignored
+
+```yml
+webloader:
+  js:
+    default: # your WebLoader js control name
+      files:
+        - script.js
+        - script.min.js    # this file will not be filtered by @jsMin
+      fileFilters:
+        - @jsMin
+```
